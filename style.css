@@ -1,0 +1,150 @@
+/* Reset básico para limpar margens do navegador */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    /* Fundo 3D moderno: Preto, Azul e Branco */
+    background: radial-gradient(circle at top right, #001f3f, #000000, #005a9c);
+    color: #ffffff;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Configuração dos objetos flutuantes ao fundo */
+.bg-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Permite clicar através dos objetos */
+    z-index: 0;
+    overflow: hidden;
+}
+
+/* Criando profundidade (efeito 3D) com sombras (drop-shadow) nos emojis */
+.element {
+    position: absolute;
+    filter: drop-shadow(0px 10px 20px rgba(255, 255, 255, 0.2));
+    animation: float 6s ease-in-out infinite alternate;
+}
+
+/* Posições e tamanhos dos objetos */
+.rocket { top: 15%; left: 10%; animation-duration: 7s; font-size: 6rem; }
+.moon { top: 60%; left: 80%; animation-duration: 8s; font-size: 7rem; }
+.star { top: 15%; right: 15%; animation-duration: 5s; transform: rotate(45deg); font-size: 5rem;}
+.rocket2 { bottom: 10%; left: 30%; animation-duration: 9s; transform: scaleX(-1); font-size: 4rem; filter: drop-shadow(0px 10px 20px rgba(0, 150, 255, 0.5));}
+.moon2 { top: 80%; left: 15%; font-size: 4rem; animation-duration: 10s;}
+
+/* Animação de flutuação para dar vida aos objetos */
+@keyframes float {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-30px) rotate(10deg); }
+}
+
+header {
+    text-align: center;
+    padding: 4rem 2rem 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #ffffff;
+    text-shadow: 0px 4px 20px rgba(0, 150, 255, 0.8); /* Brilho neon no título */
+}
+
+header p {
+    font-size: 1.1rem;
+    color: #b3d4ff;
+    margin-top: 10px;
+}
+
+main {
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1100px;
+    width: 100%;
+    transition: all 0.4s ease;
+}
+
+/* ========================================= */
+/* EFEITO MODAL E FOSCO (BLUR) AO PASSAR O MOUSE */
+/* ========================================= */
+
+/* Quando o mouse entra no container e foca em UM card, os OUTROS cards embaçam */
+.card-container:has(.card:hover) .card:not(:hover) {
+    filter: blur(6px) brightness(0.5);
+    transform: scale(0.95);
+}
+
+/* O card principal (Visual Glassmorphism - Vidro) */
+.card {
+    background: rgba(255, 255, 255, 0.05); /* Fundo semi-transparente */
+    backdrop-filter: blur(10px); /* Efeito de vidro */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: left;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Detalhe brilhante no topo do card simulando reflexo 3D */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 100%);
+    z-index: -1;
+}
+
+/* Estilo do card ESPECÍFICO que está com o mouse em cima */
+.card:hover {
+    transform: scale(1.08); /* Aumenta o tamanho */
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 20px 50px rgba(0, 150, 255, 0.4), 0 0 20px rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #4da6ff;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+.card p {
+    font-size: 1rem;
+    color: #e0e0e0;
+    line-height: 1.6;
+}
+
+/* Design Responsivo para telas pequenas (Celulares) */
+@media (max-width: 768px) {
+    h1 { font-size: 2.2rem; }
+    /* Esconde os elementos do fundo em telas pequenas para não travar o celular e não sobrepor o texto */
+    .element { display: none; } 
+    .card-container { gap: 1.5rem; }
+}
